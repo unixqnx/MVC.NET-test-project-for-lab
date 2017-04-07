@@ -1,0 +1,29 @@
+﻿@using test
+@model Staff
+
+@{
+    ViewBag.Title = "Add Staff";
+}
+
+<h2>Add Staff</h2>
+
+@using (Html.BeginForm())
+{
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(_ => _.Name)
+        </dt>
+        <dd>
+            @Html.EditorFor(_ => _.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(_ => _.RoleId)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(_=>_.RoleId, new SelectList(ViewBag.Roles, "id", "rolename"), "-Please select role-")
+        </dd>
+    </dl>
+    <input type="submit" value="SABMIT">
+}
+

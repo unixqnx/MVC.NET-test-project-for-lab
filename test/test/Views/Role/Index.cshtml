@@ -1,0 +1,20 @@
+﻿@using test
+@model IEnumerable<Role>
+
+@{
+    ViewBag.Title = "Role Index";
+}
+
+<h2>Role Index</h2>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@item.roleName</td>
+            <td>@Html.ActionLink("Edit", "Edit", new { item.id})</td>
+            <td>@Html.ActionLink("Delete", "Delete", new { item.id })</td>
+        </tr>
+    }
+</table>

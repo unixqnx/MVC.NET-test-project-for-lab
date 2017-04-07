@@ -1,0 +1,24 @@
+﻿@using test
+@model Role
+
+@{
+    ViewBag.Title = "Edit Role";
+}
+
+<h2>Edit Role</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(_ => _.id)
+    <dl>
+        <dt>
+            @Html.LabelFor(_ => _.roleName)
+        </dt>
+        <dd>
+            @Html.EditorFor(_ => _.roleName)
+        </dd>
+    </dl>
+    <input type="submit" value="SABMIT">
+}
+
+

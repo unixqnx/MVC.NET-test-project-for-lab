@@ -1,0 +1,22 @@
+﻿@using test
+@model Role
+
+@{
+    ViewBag.Title = "Delete Role";
+}
+
+<h2>Delete Role</h2>
+
+<form method="POST">
+    <input type="hidden" name="id" value="@Model.id">
+    <dl>
+        <dt>
+            Role name
+        </dt>
+        <dd>
+            @Model.roleName
+        </dd>
+    </dl>
+    <input type="submit" value="SUBMIT">
+</form>
+
