@@ -1,24 +1,52 @@
 ﻿@using test
-@model IEnumerable<Staff>
+@model int?
 
 @{
     ViewBag.Title = "Staff Index";
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "tId"
+    };
+
 }
 
 <h2>Role Index</h2>
 
 @Html.ActionLink("Create new Staff", "Add")
 
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.id</td>
-            <td>@item.Name</td>
-            <td>@item.Role.roleName</td>
-            <td>@Html.ActionLink("Edit", "Edit", new { item.id })</td>
-            <td>@Html.ActionLink("Delete", "Delete", new { item.id })</td>
-        </tr>
-    }
+<table id="tId">
+@Html.Action("GetStaffs", new { id = Model})
 </table>
+
+
+@using (Ajax.BeginForm("GetStaffs", ajaxOptions))
+{
+    @Html.Label("Role");
+    @Html.DropDownList("id", new SelectList(ViewBag.Roles, "id", "roleName"), "- All -")
+    <br>
+    <input type="submit" value="SUBMIT" />
+}
+
+<div>
+    @foreach (var item in (IEnumerable<Role>) ViewBag.Roles)
+    {
+        <div>
+            @Ajax.ActionLink( "Role" + item.id.ToString(), "GetStaffs", new {id = item.id},
+           //new AjaxOptions { UpdateTargetId = "tId"}
+           ajaxOptions
+           )
+        </div>
+    }
+
+    <div>
+        @Ajax.ActionLink("All", "GetStaffs", new { id = "" },
+           new AjaxOptions { UpdateTargetId = "tId" }
+
+           )
+    </div>
+
+
+
+</div>
 

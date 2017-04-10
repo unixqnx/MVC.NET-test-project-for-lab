@@ -1,0 +1,20 @@
+﻿@using test
+@model IEnumerable<Staff>
+
+@{ 
+
+    Layout = null;
+}
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.id</td>
+        <td>@item.Name</td>
+        <td>@item.Role.roleName</td>
+        <td>@Html.ActionLink("Edit", "Edit", new { item.id })</td>
+        <td>@Html.ActionLink("Delete", "Delete", new { item.id })</td>
+    </tr>
+}
+
