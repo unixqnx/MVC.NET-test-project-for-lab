@@ -1,0 +1,84 @@
+﻿@model int?
+
+@{
+    ViewBag.Title = "Staff Index";
+}
+
+<script>
+
+	function processData(data) {
+		var target = $("#tId");
+		target.empty();
+		for (var i = 0; i < data.length; i++) {
+			var user = data[i];
+			target.append("<tr><td>" + user.id + "</td><td>"
+				+ user.Name + "</td>"
+				+ "<td>" + user.Role.roleName + "</td>"
+				+ "<td><a href='@Url.Action("Edit", "Staff")/" + user.id + "'>Edit</a></td>"
+				+ "<td><a href='@Url.Action("Delete", "Staff")/" + user.id + "'>Delete</a></td>"
+				+ "</tr>");
+		}
+	}
+
+	function Ajax(id, callback) {
+		$.ajax({
+			url: "@Url.Action("GetStaffsDataJson")/" + id,
+			success: function(result) {
+				callback(result);
+			}
+		});
+	}
+
+	function linkJSFunction(id) {
+		Ajax(id, processData);
+	}
+
+	//function firstLoad() {
+	//	Ajax(null, processData);
+	//}
+
+
+
+	$(document).ready(function () {
+
+		//firstLoad();
+
+		$("#roleList").change(function () {
+			var selectedId = $(this).val();
+			Ajax(selectedId, processData);
+		});
+	});
+
+</script>
+
+
+<h2>Role Index</h2>
+<br/>
+
+
+
+@Html.ActionLink("Create new Staff", "Add")
+
+<table id="tId">
+@Html.Action("GetStaffs", new { id = Model})
+</table>
+
+
+
+@Html.Label("Role");
+@Html.DropDownList("roleList", new SelectList(ViewBag.Roles, "id", "roleName"), "- All -")
+<br/>
+
+
+@*------------------------------------------------------------------------------------------------------------------*@
+
+
+@foreach (var item in (IEnumerable<Role>) ViewBag.Roles)
+{
+	<div>
+		<a href='#' onclick='linkJSFunction(@item.id);'>@item.roleName</a>
+	</div>
+}
+<div>
+	<a href='#' onclick='linkJSFunction();'>All</a>
+</div>

@@ -1,0 +1,95 @@
+﻿@model int?
+
+@{
+    ViewBag.Title = "Staff Index";
+
+	AjaxOptions ajaxOptions = new AjaxOptions
+	{
+		UpdateTargetId = "tId",
+		Url = Url.Action("GetStaffsDataJson"),
+		OnSuccess = "processData"
+	};
+
+}
+
+<script type="text/javascript">
+	function processData(data) {
+		var target = $("#tId");
+		target.empty();
+		for (var i = 0; i < data.length; i++) {
+			var user = data[i];
+			target.append("<tr><td>" + user.id + "</td><td>"
+				+ user.Name + "</td>"
+				+ "<td>" + user.Role.roleName + "</td>"
+				+"<td><a href='@Url.Action("Edit", "Staff")/"+ user.id +"'>Edit</a></td>"
+				+"<td><a href='@Url.Action("Delete", "Staff")/"+ user.id +"'>Delete</a></td>"
+				+"</tr>");
+        }
+    }
+</script>
+
+
+<h2>Role Index</h2>
+
+@Html.ActionLink("Create new Staff", "Add")
+
+<table id="tId">
+@Html.Action("GetStaffs", new { id = Model})
+</table>
+
+
+@using (Ajax.BeginForm("GetStaffs", ajaxOptions))
+{
+    @Html.Label("Role");
+    @Html.DropDownList("id", new SelectList(ViewBag.Roles, "id", "roleName"), "- All -")
+    <br>
+    <input type="submit" value="SUBMIT" />
+}
+
+<div>
+	@foreach (var item in (IEnumerable<Role>)ViewBag.Roles)
+	{
+		<div>
+			@Ajax.ActionLink(item.roleName, "GetStaffs", new { id = item.id },
+				new AjaxOptions
+				{
+					Url = Url.Action("GetStaffsDataJson", new { id = item.id }),
+					OnSuccess = "processData"
+				})
+		</div>
+	}
+	<div>
+		@Ajax.ActionLink("All", "GetStaffs",
+				new AjaxOptions
+				{
+					Url = Url.Action("GetStaffsDataJson"),
+					OnSuccess = "processData"
+				})
+	</div>
+</div>
+
+
+
+
+@*<div>
+    @foreach (var item in (IEnumerable<Role>) ViewBag.Roles)
+    {
+        <div>
+            @Ajax.ActionLink( "Role" + item.id.ToString(), "GetStaffs", new {id = item.id},
+           //new AjaxOptions { UpdateTargetId = "tId"}
+           ajaxOptions
+           )
+        </div>
+    }
+
+    <div>
+        @Ajax.ActionLink("All", "GetStaffs", new { id = "" },
+           new AjaxOptions { UpdateTargetId = "tId" }
+
+           )
+    </div>
+
+
+
+</div>*@
+
