@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using Formatting = System.Xml.Formatting;
 
 namespace test.Controllers
