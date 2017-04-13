@@ -41,7 +41,7 @@
 @using (Ajax.BeginForm("GetStaffs", ajaxOptions))
 {
     @Html.Label("Role");
-    @Html.DropDownList("id", new SelectList(ViewBag.Roles, "id", "roleName"), "- All -")
+    @Html.DropDownList("id", new SelectList(ViewBag.Roles, "id", "roleName", Model), "- All -")
     <br>
     <input type="submit" value="SUBMIT" />
 }

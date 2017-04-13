@@ -21,6 +21,44 @@ namespace test.Controllers
             return View(id);
         }
 
+		private int? ReadSession(int? id)
+		{
+			id = Session["roleId"] as int?;
+			return id;
+		}
+
+		private int? WriteSession(int? id)
+		{
+			Session["roleId"] = id;
+			return id;
+		}
+
+		private int? ReadCookie(int? id)
+		{
+			HttpCookie cookie = Request.Cookies["TestApplication"];
+
+			if (cookie != null)
+			{
+				int value;
+				string roleString = cookie["roleId"];
+
+				if (int.TryParse(roleString, out value))
+				{
+					id = value;
+				}
+			}
+
+			return id;
+		}
+
+		private int? WriteCookie(int? id)
+		{
+			HttpCookie cookie = new HttpCookie("TestApplication");
+			cookie["roleId"] = id.ToString();
+			cookie.Expires = DateTime.Now.AddYears(1);
+			Response.Cookies.Add(cookie);
+			return id;
+		}
 
 		#region
 
@@ -30,6 +68,9 @@ namespace test.Controllers
             {
                 ViewBag.Roles = context.Roles.ToList();
             }
+
+			//id = ReadCookie(id);
+			id = ReadSession(id);
 
             return View(id);
         }
@@ -46,6 +87,9 @@ namespace test.Controllers
 
 		public JsonResult GetStaffsDataJson(int? id)
         {
+			//id = WriteCookie(id);
+			id = WriteSession(id);
+
 			IEnumerable<Staff> staffs;
 			using (testDBEntities context = new testDBEntities())
 			{
