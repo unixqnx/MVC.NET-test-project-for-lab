@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>From layout 2</h1>
+</div>
+<div>
+    @RenderBody()
+</div>
+
+
+
+@section scripts
+{
+   @RenderSection("scripts") 
+}
+
+

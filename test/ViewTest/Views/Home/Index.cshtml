@@ -1,0 +1,53 @@
+﻿@using ViewTest.App_Code
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    //Layout = null;
+}
+
+@Html.Partial("Now", DateTime.Now.AddYears(1))
+
+<div> 
+    <h1>Index</h1>
+</div>
+
+@Html.Partial("~/Views/Home/Now.cshtml", DateTime.Now)
+<br>
+@Html.Action("Now", DateTime.Now.AddYears(-1));
+
+
+@submit("Ok")
+@MyHelper.submiting("submiting")
+@submited("submited")
+@NewHelper.MyHelper("MyHelper")
+
+<br>
+
+@Url.Action("Index","Home")
+
+
+
+   <  ><
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/MyScript.js"></script>
+}
+
+
+@helper submit(string name)
+{
+    <input type="submit" value="@name">   
+}
+
+
+@functions
+{
+    MvcHtmlString submited(string name)
+    {
+        return new MvcHtmlString($"<input type='submit' value='{name}'/>");
+    }
+}

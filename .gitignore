@@ -1,3 +1,6 @@
 /test/test/bin
 /test/test/obj
 /test/test/*.user
+/test/ViewTest/bin
+/test/ViewTest/obj
+/test/ViewTest/*.user
