@@ -4,3 +4,6 @@
 /test/ViewTest/bin
 /test/ViewTest/obj
 /test/ViewTest/*.user
+/test/ValidationTest/*.user
+/test/ValidationTest/obj
+/test/ValidationTest/bin

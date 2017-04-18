@@ -1,0 +1,14 @@
+﻿@using ValidationTest.Models
+@model Appointment
+
+@{
+    ViewBag.Title = "Вы записались!";
+}
+
+
+<h3>Вы записались!</h3>
+<p>Ваше имя: <b>@Html.DisplayFor(_ => _.ClientName)</b></p>
+<p>Дата приёма: <b>@Html.DisplayFor(_ => _.Date)</b></p>
+
+
+

@@ -1,0 +1,21 @@
+﻿@using ValidationTest.Models
+@model Appointment
+
+@{
+    ViewBag.Title = "Запись на собеседование";
+}
+
+<h3>Записаться</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <p>@Html.ValidationMessageFor(_ => _.ClientName)</p>
+    <p>Ваше имя: @Html.EditorFor(_=>_.ClientName)</p>
+    <p>@Html.ValidationMessageFor(_ => _.Date)</p>
+    <p>Дата записи: @Html.EditorFor(_=>_.Date)</p>
+    <p>@Html.ValidationMessageFor(_ => _.TermsAccepted)</p>
+    <p>@Html.EditorFor(_=>_.TermsAccepted) Я принимаю правила и условия</p>
+    <input type="submit" value="Записаться">
+}
